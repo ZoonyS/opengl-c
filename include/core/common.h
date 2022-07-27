@@ -5,7 +5,6 @@
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 #include <math.h>
-#include <sys/time.h>
 
 #include "core/config.h"
 #include "core/window.h"
