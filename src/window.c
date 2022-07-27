@@ -85,30 +85,39 @@ int initWindow(unsigned int width, unsigned int height, const char* title) {
 
   // vertex data
   float vertices[] = {
-    -0.5f, -0.5f, 0.0f, // left
-    0.5f, -0.5f, 0.0f,  // right
-    0.0f, 0.5f, 0.0f    // top
+    0.5f,  0.5f, 0.0f,  // top right
+    0.5f, -0.5f, 0.0f,  // bottom right
+    -0.5f, -0.5f, 0.0f,  // bottom left
+    -0.5f,  0.5f, 0.0f   // top left 
+  };
+
+  unsigned int indices[] = {  // note that we start from 0!
+    0, 1, 3,  // first Triangle
+    1, 2, 3   // second Triangle
   };
   
   // vertex buffer object
-  unsigned int vertexBufferObject;
-  glGenBuffers(1, &vertexBufferObject);
-  glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
+  unsigned int VBO;
+  glGenBuffers(1, &VBO);
+  glBindBuffer(GL_ARRAY_BUFFER, VBO); // copy our vertices array in a buffer
   glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+  // vertex array object
+  unsigned int VAO;
+  glGenVertexArrays(1, &VAO);  
+  glBindVertexArray(VAO);
+
+  // elemental buffer object
+  unsigned int EBO;
+  glGenBuffers(1, &EBO);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW); // render the triangles from index buffer
 
   // linking vertex attributes
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
 
-  // vertex array object
-  unsigned int vertexArrayObject;
-  glGenVertexArrays(1, &vertexArrayObject);  
-  glBindVertexArray(vertexArrayObject);
-  glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject); // copy our vertices array in a buffer
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0); // set our vertex attributes pointers
-  glEnableVertexAttribArray(0);  
-
+  // render loop
   while (!glfwWindowShouldClose(window))
   {
     // inputs
@@ -121,7 +130,7 @@ int initWindow(unsigned int width, unsigned int height, const char* title) {
     glClearColor(r, g, b, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    render(shaderProgram, vertexArrayObject);
+    render(shaderProgram, VAO);
 
     // swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
     glfwSwapBuffers(window);
@@ -129,8 +138,8 @@ int initWindow(unsigned int width, unsigned int height, const char* title) {
   }
 
   // de-allocate resources
-  glDeleteVertexArrays(1, &vertexArrayObject);
-  glDeleteBuffers(1, &vertexBufferObject);
+  glDeleteVertexArrays(1, &VAO);
+  glDeleteBuffers(1, &VBO);
   glDeleteProgram(shaderProgram);
 
   glfwTerminate();
