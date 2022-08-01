@@ -7,13 +7,17 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <stb_image/stb_image.h>
+#include "math/vector.h"
 
 typedef struct {
+  float *texture_coords;
   float *vertices; 
   unsigned int *indices;
   GLuint VAO;
   GLuint VBO;
   GLuint EBO;
+  GLuint TEX;
 } Object;
 
 Object* init_object();
