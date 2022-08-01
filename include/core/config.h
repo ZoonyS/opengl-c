@@ -1,9 +1,8 @@
-#ifndef DEFS_H
-#define DEFS_H
+#ifndef CONFIG_H
+#define CONFIG_H
 
-#define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 720
-#define APP_NAME "Gerstner Waves"
-#define gl_Position
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
+#define WINDOW_TITLE "Opengl Window"
 
 #endif

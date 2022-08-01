@@ -1,4 +1,4 @@
-#include "core/common.h"
+#include "core/input.h"
 
 void processInput(GLFWwindow *window)
 {

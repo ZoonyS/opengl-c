@@ -1,11 +1,16 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-int initWindow(unsigned int, unsigned int, const char *);
-extern void render(GLuint, GLuint);
-extern void processInput(GLFWwindow *);
-void getRgbRainbow(GLfloat *, GLfloat *, GLfloat *, float);
-void initGLFW();
-void framebuffer_size_callback(GLFWwindow *, int, int);
+#include <stdio.h>
 
-#endif
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
+#include "core/config.h"
+
+GLFWwindow* init_window();
+void window_swap_buffer(struct GLFWwindow* window);
+void window_poll_event();
+void window_close();
+
+#endif // !WINDOW_H

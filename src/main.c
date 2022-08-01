@@ -1,8 +1,18 @@
-#include "core/common.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-int main()
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
+#include "core/window.h"
+#include "core/scene.h"
+
+int main(int argc, char *argv[])
 {
-  initWindow(SCREEN_WIDTH, SCREEN_HEIGHT, APP_NAME);
+  GLFWwindow *window = init_window();
+  Scene *scene = init_scene();
+
+  render_scene(window, scene);
 
   return 0;
 }
