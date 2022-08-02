@@ -49,14 +49,14 @@ void render_scene(GLFWwindow *window, Scene *scene)
     glClearColor(0, 0, 0, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     
-    int vertexColorLocation = glGetUniformLocation(scene->shader_program, "ourColor");
-    Object *object = scene->object;
+    // int vertexColorLocation = glGetUniformLocation(scene->shader_program, "ourColor");
+    // Object *object = scene->object;
 
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, object->TEX);
+    glBindTexture(GL_TEXTURE_2D, scene->object->TEX);
 
     glUseProgram(scene->shader_program);
-    glBindVertexArray(object->VAO);
+    glBindVertexArray(scene->object->VAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     
     // swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
